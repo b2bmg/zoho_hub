@@ -8,6 +8,8 @@ require 'zoho_hub/string_utils'
 
 module ZohoHub
   class BaseRecord
+    attr_accessor :params
+    
     include WithConnection
     include WithAttributes
     include WithValidations
@@ -168,6 +170,8 @@ module ZohoHub
     end
 
     def initialize(params = {})
+      @params = params
+      
       attributes.each do |attr|
         zoho_key = attr_to_zoho_key(attr)
         value = params[zoho_key].nil? ? params[attr] : params[zoho_key]
